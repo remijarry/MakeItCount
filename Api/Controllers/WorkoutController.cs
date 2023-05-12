@@ -1,3 +1,4 @@
+using Api.Extensions;
 using MakeItCount.Entities;
 using MakeItCount.Reposity.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,9 @@ namespace MakeItCount.Controllers
         }
 
         [HttpGet(Name = "GetWorkouts")]
-        public async Task<List<Workout>> Get()
+        public async Task<List<WorkoutModel>> Get()
         {
-            return (await _workoutRepository.GetWorkouts()).ToList();
+            return (await _workoutRepository.GetWorkouts()).Select(workout => workout.AsDto()).ToList();
         }
 
         [HttpGet("{id}", Name = "GetWorkout")]
