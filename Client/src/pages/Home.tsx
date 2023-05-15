@@ -1,5 +1,6 @@
 import { AuthenticatedTemplate } from '@azure/msal-react';
 import { useMsal } from '@azure/msal-react';
+import Container from '@mui/material/Container';
 import { IdTokenData } from '../components/DataDisplay';
 
 /***
@@ -15,11 +16,11 @@ export const Home = () => {
         <>
             <AuthenticatedTemplate>
                 {activeAccount ? (
-                    <div>
+                    <Container>
                         <IdTokenData idTokenClaims={activeAccount.idTokenClaims} />
-                    </div>
+                    </Container>
                 ) : null}
-            </AuthenticatedTemplate>
+            </AuthenticatedTemplate >
         </>
     );
 };

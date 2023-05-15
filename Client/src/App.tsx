@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-
+import { useEffect } from 'react';
 import { MsalProvider, useMsal } from '@azure/msal-react';
 import { EventType } from '@azure/msal-browser';
 
@@ -8,7 +7,8 @@ import { PageLayout } from './components/PageLayout';
 import { Home } from './pages/Home';
 import { b2cPolicies } from './authConfig';
 
-import './App.css'
+
+import './App.css';
 
 const Pages = () => {
   /**
@@ -19,7 +19,7 @@ const Pages = () => {
    */
   const { instance } = useMsal();
   useEffect(() => {
-    const callbackId = instance.addEventCallback((event) => {
+    const callbackId = instance.addEventCallback((event: any) => {
       if (
         (event.eventType === EventType.LOGIN_SUCCESS || event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS) &&
         event.payload.account
@@ -36,8 +36,8 @@ const Pages = () => {
             .getAllAccounts()
             .find(
               (account) =>
-                account.idTokenClaims.oid === event.payload.idTokenClaims.oid &&
-                account.idTokenClaims.sub === event.payload.idTokenClaims.sub &&
+                account?.idTokenClaims?.oid === event.payload.idTokenClaims.oid &&
+                account.idTokenClaims?.sub === event.payload.idTokenClaims.sub &&
                 account.idTokenClaims['tfp'] === b2cPolicies.names.signUpSignIn
             );
 
@@ -93,7 +93,8 @@ const Pages = () => {
   );
 };
 
-const App = ({ instance }) => {
+const App = ({ instance }: any) => {
+  console.log('app')
   return (
     <MsalProvider instance={instance}>
       <PageLayout>
@@ -102,4 +103,5 @@ const App = ({ instance }) => {
     </MsalProvider>
   );
 }
+
 export default App

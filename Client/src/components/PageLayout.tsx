@@ -3,7 +3,12 @@ import { InteractionStatus } from '@azure/msal-browser';
 
 import { loginRequest, b2cPolicies } from '../authConfig';
 
-export const PageLayout = (props) => {
+
+interface PageLayoutProps {
+    children: React.ReactNode;
+}
+
+export const PageLayout = ({ children }: PageLayoutProps) => {
     const { instance, inProgress } = useMsal();
     let activeAccount;
 
@@ -20,8 +25,6 @@ export const PageLayout = (props) => {
         instance.logoutRedirect();
     };
 
-
-
     return (
         <>
             {/* <NavigationBar /> */}
@@ -33,9 +36,8 @@ export const PageLayout = (props) => {
                 <button onClick={handleLoginRedirect}>Sign In</button>
 
             </UnauthenticatedTemplate>
-
             <br />
-            {props.children}
+            {children}
             <br />
             <AuthenticatedTemplate>
                 <button onClick={handleLogoutRedirect}>
