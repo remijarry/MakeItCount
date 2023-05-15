@@ -1,12 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
 import { BrowserRouter } from 'react-router-dom';
 import { PublicClientApplication, EventType } from '@azure/msal-browser';
 import { msalConfig } from './authConfig';
 
-import './index.css'
+import './index.css';
 
 /**
  * MSAL should be instantiated outside of the component tree to prevent it from being re-instantiated on re-renders.
@@ -20,7 +20,7 @@ if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0
     msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
 }
 
-msalInstance.addEventCallback((event) => {
+msalInstance.addEventCallback((event: any) => {
     if (
         (event.eventType === EventType.LOGIN_SUCCESS ||
             event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS ||
@@ -31,6 +31,7 @@ msalInstance.addEventCallback((event) => {
     }
 });
 
+console.log('index.js')
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>

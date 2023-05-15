@@ -3,7 +3,8 @@
  * @param {Object} claims ID token claims
  * @returns claimsObject
  */
-export const createClaimsTable = (claims) => {
+
+export const createClaimsTable = (claims: any) => {
     let claimsObj = {};
     let index = 0;
 
@@ -204,7 +205,7 @@ export const createClaimsTable = (claims) => {
  * @param {Number} index
  * @param {Object} claimsObject
  */
-const populateClaim = (claim, value, description, index, claimsObject) => {
+const populateClaim = (claim: any, value: any, description: any, index: any, claimsObject: any) => {
     let claimsArray = [];
     claimsArray[0] = claim;
     claimsArray[1] = value;
@@ -217,7 +218,7 @@ const populateClaim = (claim, value, description, index, claimsObject) => {
  * @param {String} date Unix timestamp
  * @returns
  */
-const changeDateFormat = (date) => {
+const changeDateFormat = (date: any) => {
     let dateObj = new Date(date * 1000);
     return `${date} - [${dateObj.toString()}]`;
 };

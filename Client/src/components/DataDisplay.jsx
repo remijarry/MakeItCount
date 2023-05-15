@@ -1,7 +1,7 @@
 import { createClaimsTable } from '../utils/claimUtils';
 
-export const IdTokenData = ({ idTokenClaims }) => {
-    const tokenClaims = createClaimsTable(idTokenClaims);
+export const IdTokenData = (props) => {
+    const tokenClaims = createClaimsTable(props.idTokenClaims);
 
     const tableRow = Object.keys(tokenClaims).map((key, index) => {
         return (
@@ -24,7 +24,7 @@ export const IdTokenData = ({ idTokenClaims }) => {
                     </span>
                 </p>
                 <div className="data-area-div">
-                    <table>
+                    <table responsive striped bordered hover>
                         <thead>
                             <tr>
                                 <th>Claim</th>
