@@ -1,6 +1,6 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import { InteractionStatus } from '@azure/msal-browser';
-import { getWorkouts } from '../utils/webApiUtils';
+import { getWorkoutById, getWorkouts } from '../utils/webApiUtils';
 
 import { loginRequest, protectedResources } from '../authConfig';
 import { useEffect, useState } from 'react';
@@ -61,7 +61,8 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
                 instance
                     .acquireTokenSilent(accessTokenRequest)
                     .then((response) => {
-                        getWorkouts(response.accessToken).then((response) => setWorkoutsData(response));
+                        console.log(response.accessToken)
+                        getWorkoutById("132580643", response.accessToken).then((response) => setWorkoutsData(response));
                     });
             }
         }, [instance, accounts, inProgress, workoutsData]);
@@ -71,7 +72,7 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
             return (
                 <>
                     <div>
-                        api result: {workoutsData.length}
+                        api result: {workoutsData.title}
                     </div>
                 </>
             );

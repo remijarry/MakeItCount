@@ -32,6 +32,7 @@ namespace MakeItCount.Controllers
             return workouts;
         }
 
+        [RequiredScope("Workouts.Read")]
         [HttpGet("{id}", Name = "GetWorkout")]
         public async Task<Workout?> Get(int id)
         {

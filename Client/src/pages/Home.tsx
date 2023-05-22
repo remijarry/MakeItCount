@@ -1,7 +1,6 @@
-import { AuthenticatedTemplate } from '@azure/msal-react';
 import { useMsal } from '@azure/msal-react';
-import Container from '@mui/material/Container';
-import { IdTokenData } from '../components/DataDisplay';
+import NavbarTop from '../components/nav-bar-top/nav-bar-top.component';
+import { Outlet } from 'react-router-dom';
 
 /***
  * Component to detail ID token claims with a description for each claim. For more details on ID token claims, please check the following links:
@@ -14,13 +13,8 @@ export const Home = () => {
 
     return (
         <>
-            <AuthenticatedTemplate>
-                {activeAccount ? (
-                    <Container>
-                        <IdTokenData idTokenClaims={activeAccount.idTokenClaims} />
-                    </Container>
-                ) : null}
-            </AuthenticatedTemplate >
+            <NavbarTop title='Home'/>
+            <Outlet />
         </>
     );
 };

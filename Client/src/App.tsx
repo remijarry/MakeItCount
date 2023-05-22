@@ -1,14 +1,19 @@
 import { useEffect } from 'react';
-import { MsalProvider, useMsal } from '@azure/msal-react';
+import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import { EventType } from '@azure/msal-browser';
 
-import { Route, Routes } from 'react-router-dom';
-import { PageLayout } from './components/PageLayout';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { b2cPolicies } from './authConfig';
 
 
+
+
 import './App.css';
+
+
+import SignInForm from './components/sign-in-form/sign-in-form.component';
+import Routing from './routes/routing.component';
 
 const Pages = () => {
   /**
@@ -94,12 +99,14 @@ const Pages = () => {
 };
 
 const App = ({ instance }: any) => {
-  console.log('app')
   return (
     <MsalProvider instance={instance}>
-      <PageLayout>
-        <Pages />
-      </PageLayout>
+      <AuthenticatedTemplate>
+        <Routing />
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <SignInForm />
+      </UnauthenticatedTemplate>
     </MsalProvider>
   );
 }
