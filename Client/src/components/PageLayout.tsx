@@ -1,12 +1,10 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { ApiId, InteractionRequiredAuthError, InteractionStatus } from '@azure/msal-browser';
+import { InteractionStatus } from '@azure/msal-browser';
+import { getWorkouts } from '../utils/webApiUtils';
 
-
-import { loginRequest, protectedResources, b2cPolicies } from '../authConfig';
+import { loginRequest, protectedResources } from '../authConfig';
 import { useEffect, useState } from 'react';
-import useFetchWithMsal from '../hooks/useFetchWithMsal';
 import Container from '@mui/system/Container';
-import { Button } from '@mui/material';
 
 
 interface PageLayoutProps {
@@ -49,118 +47,31 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
 
     const WorkoutContent = () => {
         const [workoutsData, setWorkoutsData] = useState(null);
-        // const { error, execute } = useFetchWithMsal({
-        //     scopes: protectedResources.apiWorkoutsList.scopes.read,
-        // });
 
         const { instance, inProgress, accounts } = useMsal();
+
+
         useEffect(() => {
-            console.log('fetching the workouts');
             if (!workoutsData && inProgress === InteractionStatus.None) {
                 const accessTokenRequest = {
                     scopes: protectedResources.apiWorkoutsList.scopes.read,
                     accounts: accounts[0]
                 };
+
                 instance
                     .acquireTokenSilent(accessTokenRequest)
-                    .then((accessTokenResponse) => {
-                        // Acquire token silent success
-                        const accessToken = accessTokenResponse.accessToken;
-                        console.log({ accessToken });
-                        const url = `http://localhost:5139/workouts`;
-                        const headers = new Headers();
-                        const bearer = `Bearer ${accessToken}`;
-                        headers.append("Authorization", bearer);
-                        const options = {
-                            method: "GET",
-                            headers: headers,
-                        };
-
-                        console.log('front-end: fetchWorkout')
-
-                        const fetchWorkout = async () => {
-                            const data = await (await fetch(url, options)).json();
-                            setWorkoutsData(data);
-                        };
-
-                        fetchWorkout();
-
-                        console.log('front-end: workouts fetched')
-                        console.log({ workoutsData })
-                    })
-                    .catch((error) => {
-                        if (error instanceof InteractionRequiredAuthError) {
-                            instance
-                                .acquireTokenPopup(accessTokenRequest)
-                                .then(function (accessTokenResponse) {
-                                    // Acquire token interactive success
-                                    const accessToken = accessTokenResponse.accessToken;
-                                    console.log({ accessToken });
-                                    // Call your API with token
-                                    const url = `http://localhost:5139/workouts`;
-                                    const headers = new Headers();
-                                    const bearer = `Bearer ${accessToken}`;
-                                    headers.append("Authorization", bearer);
-                                    const options = {
-                                        method: "GET",
-                                        headers: headers,
-                                    };
-
-                                    const fetchWorkout = async () => {
-                                        const data = await (await fetch(url, options)).json();
-                                        setWorkoutsData(data);
-                                    };
-
-                                    fetchWorkout();
-                                })
-                                .catch(function (error) {
-                                    // Acquire token interactive failure
-                                    console.log(error);
-                                });
-                        }
-                        console.log(error);
+                    .then((response) => {
+                        getWorkouts(response.accessToken).then((response) => setWorkoutsData(response));
                     });
-
             }
-
         }, [instance, accounts, inProgress, workoutsData]);
-        // useEffect(() => {
-        //     console.log('fetching the workouts');
-        //     if (!workoutsData) {
-        //         execute("GET", protectedResources.apiWorkoutsList.endpoint).then((response) => {
-        //             setWorkoutsData(response);
-        //         });
-        //     }
-        // }, [execute, workoutsData])
 
-        // if (error) {
-        //     return <div>Error: {error.message}</div>
-        // } else {
-        //     if (workoutsData) {
-        //         <div>nb workouts: {workoutsData.length}</div>
-        //     } else {
-        //         return <> <div> fetch failed! </div> </>;
-
-        //     }
-        // }
-
-        // useEffect(() => {
-        //     console.log('fetching workout');
-        //     const workoutId = 132580643;
-        //     const url = `http://localhost:5139/workouts/${workoutId} `;
-        //     const fetchWorkout = async () => {
-        //         const data = await (await fetch(url)).json();
-        //         setWorkoutsData(data);
-        //     };
-
-        //     fetchWorkout();
-        // }, []);
 
         if (workoutsData) {
             return (
                 <>
                     <div>
-                        {workoutsData.title}
+                        api result: {workoutsData.length}
                     </div>
                 </>
             );

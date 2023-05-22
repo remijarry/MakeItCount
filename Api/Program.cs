@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("http://localhost:5173", "https://localhost:7232")
+        builder.WithOrigins("http://localhost:5173")
                .AllowAnyHeader()
                .AllowAnyMethod();
     });
@@ -23,7 +23,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(options =>
                 {
                     config.Bind("AzureAd", options);
-                    options.Authority = "https://login.microsoftonline.com/8aed4765-f50e-41d7-8972-8969d1715a48/v2.0/";
+                    // options.Authority = "https://login.microsoftonline.com/8aed4765-f50e-41d7-8972-8969d1715a48/v2.0/";
                     options.TokenValidationParameters.NameClaimType = "name";
                 }, options => { config.Bind("AzureAd", options); });
 

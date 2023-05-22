@@ -28,7 +28,6 @@ namespace MakeItCount.Controllers
         [HttpGet(Name = "GetWorkouts")]
         public async Task<List<WorkoutModel>> Get()
         {
-            Console.WriteLine("Getting workouts");
             var workouts = (await _workoutRepository.GetWorkouts()).Select(workout => workout.AsDto()).ToList();
             return workouts;
         }
