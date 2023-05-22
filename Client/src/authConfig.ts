@@ -28,6 +28,7 @@ export const b2cPolicies = {
         },
     },
     authorityDomain: 'madeitcount.b2clogin.com',
+
 };
 
 /**
@@ -71,6 +72,15 @@ export const msalConfig = {
                         return;
                 }
             },
+        },
+    },
+};
+
+export const protectedResources = {
+    apiWorkoutsList: {
+        endpoint: 'http://localhost:5139/workouts',
+        scopes: {
+            read: ['https://madeitcount.onmicrosoft.com/609be99d-f755-4f36-87f1-d49889ebb202/Workouts.Read'],
         },
     },
 };

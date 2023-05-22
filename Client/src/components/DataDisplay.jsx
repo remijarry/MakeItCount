@@ -24,7 +24,7 @@ export const IdTokenData = (props) => {
                     </span>
                 </p>
                 <div className="data-area-div">
-                    <table responsive striped bordered hover>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Claim</th>
