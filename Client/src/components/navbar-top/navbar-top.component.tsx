@@ -6,9 +6,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { useMsal } from '@azure/msal-react';
+import { useNavigate } from 'react-router-dom';
+import { navBarTopItems } from './navbar-top-items';
 
 interface INavbarTopProps {
   title: string
@@ -18,7 +19,23 @@ interface INavbarTopProps {
 
 
 const NavbarTop = ({ title }: INavbarTopProps) => {
+  const [navTitle, setNavTitle] = React.useState(title);
+  const { instance } = useMsal();
+  const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+
+  const handleLogoutPopup = () => {
+    instance.logoutPopup({
+      mainWindowRedirectUri: '/', // redirects the top level app after logout
+    });
+  };
+
+  const handleNavItemClick = (route: string, title: string) => {
+    // prevent default
+    navigate(route);
+    setNavTitle(title);
+  }
+
 
   const toggleDrawer =
     (open: boolean) =>
@@ -42,30 +59,17 @@ const NavbarTop = ({ title }: INavbarTopProps) => {
       onKeyDown={() => setIsDrawerOpen(false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+        {navBarTopItems.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton onClick={() => handleNavItemClick(item.route, item.name)}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {item.icon}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      </List >
     </Box>
   );
 
@@ -91,7 +95,7 @@ const NavbarTop = ({ title }: INavbarTopProps) => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {title}
+              {navTitle}
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
@@ -109,5 +113,4 @@ const NavbarTop = ({ title }: INavbarTopProps) => {
     </>
   )
 }
-
 export default NavbarTop

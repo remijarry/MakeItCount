@@ -2,12 +2,8 @@ import { useEffect } from 'react';
 import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import { EventType } from '@azure/msal-browser';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { b2cPolicies } from './authConfig';
-
-
-
 
 import './App.css';
 
@@ -92,9 +88,10 @@ const Pages = () => {
   }, [instance]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
+    <></>
+    // <Routes>
+    //   <Route path="/" element={<Home />} />
+    // </Routes>
   );
 };
 

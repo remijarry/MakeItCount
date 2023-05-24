@@ -1,5 +1,5 @@
 import { useMsal } from '@azure/msal-react';
-import NavbarTop from '../components/nav-bar-top/nav-bar-top.component';
+import NavbarTop from '../components/navbar-top/navbar-top.component';
 import { Outlet } from 'react-router-dom';
 
 /***
@@ -13,8 +13,10 @@ export const Home = () => {
 
     return (
         <>
-            <NavbarTop title='Home'/>
+            <NavbarTop title='Home' />
             <Outlet />
         </>
     );
 };
+
+export default Home;
