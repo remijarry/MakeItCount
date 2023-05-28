@@ -98,12 +98,13 @@ const Pages = () => {
 const App = ({ instance }: any) => {
   return (
     <MsalProvider instance={instance}>
-      <AuthenticatedTemplate>
+      {/* <AuthenticatedTemplate>
         <Routing />
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <SignInForm />
-      </UnauthenticatedTemplate>
+      </UnauthenticatedTemplate> */}
+      <Routing />
     </MsalProvider>
   );
 }

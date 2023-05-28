@@ -14,6 +14,7 @@ export const Home = () => {
     return (
         <>
             <NavbarTop title='Home' />
+            
             <Outlet />
         </>
     );

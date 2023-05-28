@@ -1,8 +1,9 @@
 import React from 'react'
+import SearchBar from '../components/searchBar/searchBar.component'
 
 const Journal = () => {
     return (
-        <div>Journal</div>
+        <SearchBar />
     )
 }
 
