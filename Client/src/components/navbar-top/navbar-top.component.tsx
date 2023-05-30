@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { loginRequest } from '../../authConfig';
 
 
@@ -12,25 +12,33 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircle from '@mui/icons-material/AccountCircle'
 
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { navBarTopItems } from './navbar-top-items';
 
-interface INavbarTopProps {
-  title: string
-}
-
-const NavbarTop = ({ title }: INavbarTopProps) => {
+const NavbarTop = () => {
+  const location = useLocation();
+  //const [navTitle, setNavTitle] = React.useState('Home');
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const [navTitle, setNavTitle] = React.useState(title);
   const { instance } = useMsal();
+  const activeAccount = instance.getActiveAccount();
   const navigate = useNavigate();
+
+  const pathName = location.pathname;
+  let navTitle = pathName.split('/')[1];
+  if (navTitle === '') {
+    navTitle = 'Home'
+  } else {
+    navTitle = navTitle.charAt(0).toUpperCase() + navTitle.slice(1);
+  }
+
 
 
   const handleNavItemClick = (route: string, title: string) => {
     // prevent default
     navigate(route);
-    setNavTitle(title);
+    //  setNavTitle(title);
   }
   const handleLoginPopup = () => {
     console.log('hi there')
@@ -117,7 +125,17 @@ const NavbarTop = ({ title }: INavbarTopProps) => {
               <Button onClick={handleLoginPopup} color="inherit">Login</Button>
             </UnauthenticatedTemplate>
             <AuthenticatedTemplate>
-              Welcome MaDude
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <AccountCircle sx={{ width: '1.5em', height: '1.5em' }} />
+                </IconButton>
+              </div>
             </AuthenticatedTemplate>
           </Toolbar>
         </AppBar>

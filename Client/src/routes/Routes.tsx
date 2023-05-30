@@ -2,7 +2,7 @@ export const ROUTES =
 {
     DASHBOARD: {
         label: 'Dashboard',
-        route: '/',
+        route: '/dashboard',
     },
     JOURNAL: {
         label: 'Training Journal',
