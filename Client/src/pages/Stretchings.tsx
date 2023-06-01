@@ -52,14 +52,32 @@ const Stretchings = () => {
         }}>
             <ThumbnailGridContainer container spacing={2}>
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <ThumbnailImage
-                        sx={{
+                    <Box sx={{
+                        position: 'relative',
+                        display: 'inline-block',
+                    }}>
+                        <ThumbnailImage
+                            src={`https://img.youtube.com/vi/o1XBfaDz9Mw/sddefault.jpg`}
+                        />
+                        <Box sx={{
+                            position: 'absolute',
+                            top: '-5px',
+                            left: '0',
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            color: 'white',
+                            fontSize: '1.5rem',
+                            fontWeight: 'bold',
                             cursor: 'pointer'
                         }}
-                        src={`https://img.youtube.com/vi/o1XBfaDz9Mw/sddefault.jpg`}
-                        onClick={() => handleOpen('Thoracic Spine')}
+                            onClick={() => handleOpen('Thoracic Spine')}
+                        >
+                            Thoracic Spine
+                        </Box>
 
-                    />
+                    </Box>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} lg={3}>
                     <ThumbnailImage
