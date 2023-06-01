@@ -1,5 +1,9 @@
 export const ROUTES =
 {
+    HOME: {
+        label: 'Home',
+        route: '/',
+    },
     DASHBOARD: {
         label: 'Dashboard',
         route: '/dashboard',

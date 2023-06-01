@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { loginRequest } from '../../authConfig';
 
 
@@ -15,9 +15,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { navBarTopItems } from './navbar-top-items';
+import { navBarTopItems } from './navigation-items';
 
-const NavbarTop = () => {
+const Navigation = () => {
   const location = useLocation();
   //const [navTitle, setNavTitle] = React.useState('Home');
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
@@ -149,8 +149,9 @@ const NavbarTop = () => {
           list()
         }
       </Drawer>
+      <Outlet />
     </>
 
   );
 }
-export default NavbarTop;
+export default Navigation;

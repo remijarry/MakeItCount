@@ -1,15 +1,20 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from '../pages/Home'
+
 import Profile from '../pages/Profile'
 import Journal from '../pages/Journal'
 import Stretchings from '../pages/Stretchings'
 import Account from '../pages/Account'
+import Navigation from '../components/navigation/navigation.component'
+import Dashboard from '../pages/Dashboard'
+import Home from '../pages/Home'
 
 const Routing = () => {
     return (
         <Routes>
-            <Route path="*" element={<Home />}>
+            <Route path="/" element={<Navigation />}>
+                <Route index element={<Home />} />
+                <Route path="dashboard" element={<Dashboard />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="journal" element={<Journal />} />
                 <Route path="stretchings" element={<Stretchings />} />
@@ -19,4 +24,4 @@ const Routing = () => {
     )
 }
 
-export default Routing
+export default Routing;
