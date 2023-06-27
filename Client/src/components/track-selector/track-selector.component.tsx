@@ -4,25 +4,38 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-const TrackSelector = () => {
+interface ITrackSelector {
+    activeTrack: string,
+    changeTrack: (track: string) => void
+}
+
+const menuItems = ['Persist', 'Pump', 'Minimalist', 'Pillars']
+
+const TrackSelector = ({ activeTrack, changeTrack }: ITrackSelector) => {
     return (
         <FormControl fullWidth sx={{
             marginTop: 2,
             marginBottom: 1
         }}>
 
-            <InputLabel id="demo-simple-select-label">Track</InputLabel>
+            <InputLabel id="track-select-label">Track</InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value='Persist'
+                sx={{
+                    textAlign: 'left',
+                    
+                }}
+                labelId="track-select-label"
+                id="track-select"
+                value={activeTrack}
                 label="Track"
-            //onChange={e => changeTrack(e?.target.value as string)}
+                onChange={e => changeTrack(e?.target.value as string)}
             >
-                <MenuItem value={'Persist'}>Persist</MenuItem>
-                <MenuItem value={'Pump'}>Pump</MenuItem>
-                <MenuItem value={'Minimalist'}>Minimalist</MenuItem>
-                <MenuItem value={'Pillars'}>Pillars</MenuItem>
+                {menuItems.map((track: string, index: number) => (
+                    <MenuItem
+
+                        key={index}
+                        value={track}>{track}</MenuItem>
+                ))}
             </Select>
         </FormControl>
     )

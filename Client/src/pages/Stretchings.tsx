@@ -59,24 +59,6 @@ const Stretchings = () => {
                         <ThumbnailImage
                             src={`https://img.youtube.com/vi/o1XBfaDz9Mw/sddefault.jpg`}
                         />
-                        <Box sx={{
-                            position: 'absolute',
-                            top: '-5px',
-                            left: '0',
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            color: 'white',
-                            fontSize: '1.5rem',
-                            fontWeight: 'bold',
-                            cursor: 'pointer'
-                        }}
-                            onClick={() => handleOpen('Thoracic Spine')}
-                        >
-                            Thoracic Spine
-                        </Box>
-
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} lg={3}>

@@ -28,7 +28,8 @@ const Navigation = () => {
   const pathName = location.pathname;
   let navTitle = pathName.split('/')[1];
   if (navTitle === '') {
-    navTitle = 'Home'
+    // navTitle = 'Home';
+    navTitle = 'Week 1';
   } else {
     navTitle = navTitle.charAt(0).toUpperCase() + navTitle.slice(1);
   }
