@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import { Container } from '@mui/material';
 
 interface IEmbedProps {
-    videoId: string;
+    videoId: string | undefined;
     autoPlay: boolean;
 }
 
@@ -25,6 +25,7 @@ const Embed = ({ videoId, autoPlay = false }: IEmbedProps) => {
     ];
 
     const youtubeUrl = `https://www.youtube.com/embed/${videoId}?${options.join('&')}`;
+    console.log(youtubeUrl)
     return (
         <Paper>
             <Container maxWidth='md' className='video-container'>

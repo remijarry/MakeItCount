@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { useMsal } from '@azure/msal-react';
 import Container from '@mui/material/Container';
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { Box, Card, CardContent, FormControl, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import TrackSelector from '../components/track-selector/track-selector.component';
 import { IWorkout } from '../models/workout';
+import { Link } from 'react-router-dom';
+import { UserContext } from '../contexts/userContext';
 
 /***
  * Component to detail ID token claims with a description for each claim. For more details on ID token claims, please check the following links:
@@ -170,7 +169,7 @@ const workouts: IWorkout[] = [
         "isBeginningOfCycle": true
     },
     {
-        id: 132580649,
+        id: 132580650,
         shortDescription: "A) Coach's Notes<br/>B) KB Prep - Hinge & Push Structural Balance Pre-Fatigue<br/>C) Speed Sets - Front Squat<br/>D) KB Squat and Pull Structural Balance<br/>E) GRINDER - 15min Time Domain (5x3)<br/>\n",
         title: "Persist Full - Week 1 Day 2",
         workoutItems: [
@@ -322,7 +321,7 @@ const workouts: IWorkout[] = [
         "isBeginningOfCycle": true
     },
     {
-        id: 132580649,
+        id: 132580651,
         shortDescription: "A) Coach's Notes<br/>B) KB Prep - Hinge & Push Structural Balance Pre-Fatigue<br/>C) Speed Sets - Front Squat<br/>D) KB Squat and Pull Structural Balance<br/>E) GRINDER - 15min Time Domain (5x3)<br/>\n",
         title: "Persist Full - Week 1 Day 3",
         workoutItems: [
@@ -474,7 +473,7 @@ const workouts: IWorkout[] = [
         "isBeginningOfCycle": true
     },
     {
-        id: 132580649,
+        id: 132580652,
         shortDescription: "A) Coach's Notes<br/>B) KB Prep - Hinge & Push Structural Balance Pre-Fatigue<br/>C) Speed Sets - Front Squat<br/>D) KB Squat and Pull Structural Balance<br/>E) GRINDER - 15min Time Domain (5x3)<br/>\n",
         title: "Persist Full - Week 1 Day 4",
         workoutItems: [
@@ -626,7 +625,7 @@ const workouts: IWorkout[] = [
         "isBeginningOfCycle": true
     },
     {
-        id: 132580649,
+        id: 132580653,
         shortDescription: "A) Coach's Notes<br/>B) KB Prep - Hinge & Push Structural Balance Pre-Fatigue<br/>C) Speed Sets - Front Squat<br/>D) KB Squat and Pull Structural Balance<br/>E) GRINDER - 15min Time Domain (5x3)<br/>\n",
         title: "Persist Full - Week 1 Day 5",
         workoutItems: [
@@ -784,13 +783,8 @@ const workouts: IWorkout[] = [
 export const Home = () => {
     const { instance } = useMsal();
     const activeAccount = instance.getActiveAccount();
-    const [activeTrack, setActiveTrack] = useState('Persist'); //todo: pull from user settings
-
-    const changeTrack = (track: string) => {
-        setActiveTrack(track);
-    }
-
-    console.log(workouts);
+    const userSettings = useContext(UserContext);
+    console.log(userSettings.activeTrack);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -798,41 +792,33 @@ export const Home = () => {
                 padding: 0
             }}>
                 <Box>
-                    <Card sx={{ minWidth: 275, textAlign:'left' }}>
+                    <Card sx={{ minWidth: 275, textAlign: 'left' }}>
                         <CardContent sx={{ paddingTop: 0 }}>
-                            <TrackSelector activeTrack={activeTrack} changeTrack={changeTrack} />
+                            <TrackSelector />
                             {workouts?.map((workout: IWorkout) => (
-                                <Card key={workout.id}
-                                    raised={true} sx={{
-                                        marginBottom: 2
-                                    }}>
-                                    <CardContent>
-                                        <Typography variant="h5" component='div'>
-                                            {workout.title}
-                                        </Typography>
-                                        <Typography variant="subtitle2" component='div'>
-                                            <div dangerouslySetInnerHTML={{ __html: workout.shortDescription }}>
+                                <Link to={`/workout/${workout.id}`} key={workout.id}>
+                                    <Card key={workout.id}
+                                        raised={true} sx={{
+                                            marginBottom: 2
+                                        }}>
+                                        <CardContent>
+                                            <Typography variant="h5" component='div'>
+                                                {workout.title}
+                                            </Typography>
+                                            <Typography variant="subtitle2" component='div'>
+                                                <div dangerouslySetInnerHTML={{ __html: workout.shortDescription }}>
 
-                                            </div>
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
+                                                </div>
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
                             ))}
                         </CardContent>
                     </Card>
                 </Box>
             </Container>
         </Box >
-        // <Container maxWidth="xl" sx={{
-        //     padding: 0
-        // }}>
-        //     <Grid container spacing={0} justifyContent="center" alignItems="center">
-        //         <Grid item xs={12} sm={12} md={12} lg={12}>
-        //             <TrackSelector activeTrack={activeTrack} changeTrack={changeTrack} />
-        //         </Grid>
-        //     </Grid>
-        // </Container >
-
     );
 };
 

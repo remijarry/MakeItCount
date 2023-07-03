@@ -2,12 +2,12 @@ import React from 'react'
 import { AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Accordion from '@mui/material/Accordion';
-import Embed from '../Embed/embed.component';
+import Embed from '../embed/embed.component';
 import { Variant } from '@mui/material/styles/createTypography';
 
 interface IExerciseAccordionProps {
     name: string,
-    videoId: string,
+    videoId: string | undefined,
     titleVariant: Variant
 }
 

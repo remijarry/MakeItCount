@@ -20,7 +20,8 @@ export interface IWorkoutItem {
 }
 
 export interface IExercise {
-    id: string,
+    id: number | string,
     name: string,
-    videoUrl?: string
+    videoUrl?: string | ''
+    videoId?: string | '',
 }

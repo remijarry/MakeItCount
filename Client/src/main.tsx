@@ -7,6 +7,7 @@ import { PublicClientApplication, EventType } from '@azure/msal-browser';
 import { msalConfig } from './authConfig';
 
 import './index.css';
+import { UserProvider } from './contexts/userContext';
 
 /**
  * MSAL should be instantiated outside of the component tree to prevent it from being re-instantiated on re-renders.
@@ -35,7 +36,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App instance={msalInstance} />
+            <UserProvider>
+                <App instance={msalInstance} />
+            </UserProvider>
         </BrowserRouter>
     </React.StrictMode>
 );

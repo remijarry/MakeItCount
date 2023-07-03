@@ -1,17 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FormControl } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
-interface ITrackSelector {
-    activeTrack: string,
-    changeTrack: (track: string) => void
-}
+import { UserContext } from '../../contexts/userContext';
 
 const menuItems = ['Persist', 'Pump', 'Minimalist', 'Pillars']
 
-const TrackSelector = ({ activeTrack, changeTrack }: ITrackSelector) => {
+const TrackSelector = () => {
+    const userSettings = useContext(UserContext);
+
     return (
         <FormControl fullWidth sx={{
             marginTop: 2,
@@ -22,13 +20,13 @@ const TrackSelector = ({ activeTrack, changeTrack }: ITrackSelector) => {
             <Select
                 sx={{
                     textAlign: 'left',
-                    
+
                 }}
                 labelId="track-select-label"
                 id="track-select"
-                value={activeTrack}
+                value={userSettings.activeTrack}
                 label="Track"
-                onChange={e => changeTrack(e?.target.value as string)}
+                onChange={e => userSettings.changeActiveTrack(e?.target.value as string)} //todo: make an api call to get the track data
             >
                 {menuItems.map((track: string, index: number) => (
                     <MenuItem

@@ -8,12 +8,18 @@ import { Variant } from '@mui/material/styles/createTypography'
 
 interface IAccordionSectionProps {
     title: string;
+    textAlign?: 'left' | 'center' | 'right' | 'justify' | 'inherit';
     titleVariant: Variant;
     content: any;
     children: ReactNode;
 }
 
-const AccordionSection = ({ title, titleVariant = 'h6', content, children }: IAccordionSectionProps) => {
+const AccordionSection = ({
+    title,
+    titleVariant = 'h6',
+    content,
+    textAlign = 'left',
+    children }: IAccordionSectionProps) => {
     return (
         <Accordion defaultExpanded={false} disableGutters={false} TransitionProps={{ unmountOnExit: true }} sx={{
             margin: '20px 0;',
@@ -22,7 +28,9 @@ const AccordionSection = ({ title, titleVariant = 'h6', content, children }: IAc
                 <Typography sx={{ textTransform: 'capitalize' }} variant={titleVariant}>{title.toLowerCase()}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Typography variant='subtitle2'>
+                <Typography variant='subtitle2'
+                    sx={{textAlign: textAlign}}
+                >
                     {content}
                 </Typography>
             </AccordionDetails>
