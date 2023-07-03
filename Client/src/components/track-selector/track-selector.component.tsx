@@ -1,41 +1,35 @@
 import React, { useContext } from 'react'
-import { FormControl } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import {Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { UserContext } from '../../contexts/userContext';
 
 const menuItems = ['Persist', 'Pump', 'Minimalist', 'Pillars']
 
 const TrackSelector = () => {
     const userSettings = useContext(UserContext);
+    console.log(userSettings.activeTrack)
 
     return (
-        <FormControl fullWidth sx={{
-            marginTop: 2,
+        <Stack direction='row' justifyContent={'center'} sx={{
+            marginTop: 1,
             marginBottom: 1
         }}>
-
-            <InputLabel id="track-select-label">Track</InputLabel>
-            <Select
+            <ToggleButtonGroup
                 sx={{
-                    textAlign: 'left',
-
+                    flex: 1
                 }}
-                labelId="track-select-label"
-                id="track-select"
                 value={userSettings.activeTrack}
-                label="Track"
-                onChange={e => userSettings.changeActiveTrack(e?.target.value as string)}
+                exclusive
+                onChange={(e) => userSettings.changeActiveTrack(e.target.value)}
             >
                 {menuItems.map((track: string, index: number) => (
-                    <MenuItem
-
-                        key={index}
-                        value={track}>{track}</MenuItem>
+                    <ToggleButton sx={{
+                        borderRadius: 0,
+                        flex: 1
+                    }} value={track}>{track}
+                    </ToggleButton>
                 ))}
-            </Select>
-        </FormControl>
+            </ToggleButtonGroup>
+        </Stack>
     )
 }
 
