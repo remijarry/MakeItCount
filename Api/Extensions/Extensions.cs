@@ -21,10 +21,9 @@ namespace Api.Extensions
                 WarmUpExercises = workout.WarmUpExercises,
                 CooldownDescription = workout.CooldownDescription,
                 CooldownExercises = workout.CooldownExercises,
-                FilePosition = workout.FilePosition,
                 Order = workout.Order,
                 TrackName = workout.TrackName,
-                IsBeginningOfCycle = workout.IsBeginningOfCycle
+                Week = workout.Week
             };
         }
     }

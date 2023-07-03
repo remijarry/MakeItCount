@@ -4,11 +4,12 @@ using MakeItCount.Reposity.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
+using QueryParameters;
 
 namespace MakeItCount.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WorkoutsController : ControllerBase
@@ -26,9 +27,9 @@ namespace MakeItCount.Controllers
 
         [RequiredScope("Workouts.Read")]
         [HttpGet(Name = "GetWorkouts")]
-        public async Task<List<WorkoutModel>> Get()
+        public async Task<List<WorkoutModel>> Get([FromQuery] WorkoutsQueryParameters queryParameters)
         {
-            var workouts = (await _workoutRepository.GetWorkouts()).Select(workout => workout.AsDto()).ToList();
+            var workouts = (await _workoutRepository.GetWorkoutsByTrackAndWeek(queryParameters.TrackName, queryParameters.Week)).Select(workout => workout.AsDto()).ToList();
             return workouts;
         }
 
@@ -38,12 +39,6 @@ namespace MakeItCount.Controllers
         {
             Console.WriteLine($"Getting workout with id {id}");
             return await _workoutRepository.GetWorkout(id);
-        }
-
-        [HttpGet("track/{trackName}", Name = "GetWorkoutByTrackName")]
-        public async Task<List<Workout>> Get(string trackName)
-        {
-            return (await _workoutRepository.GetWorkoutsByTrackName(trackName)).ToList();
         }
 
     }

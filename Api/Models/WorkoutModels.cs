@@ -32,5 +32,7 @@ namespace MakeItCount.Entities
 
         public bool IsBeginningOfCycle { get; init; }
 
+        public int Week { get; set; }
+
     }
 }

@@ -28,9 +28,14 @@ namespace MakeItCount.Reposity.Implementations
         public async Task<IEnumerable<Workout>> GetWorkouts() =>
             await _workoutsCollection.Find(_ => true).ToListAsync();
 
+        public async Task<IEnumerable<Workout>> GetWorkoutsByTrackAndWeek(string track, int week)
+        {
+            return await _workoutsCollection.Find(workout => workout.TrackName == track.ToLowerInvariant() && workout.Week == week).ToListAsync();
+        }
+
         public async Task<IEnumerable<Workout>> GetWorkoutsByTrackName(string trackName) =>
             await _workoutsCollection
-                .Find(workout => !string.IsNullOrEmpty(workout.TrackName) 
+                .Find(workout => !string.IsNullOrEmpty(workout.TrackName)
                                 && workout.TrackName.ToLower() == trackName.ToLower())
                 .ToListAsync();
     }

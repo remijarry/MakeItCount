@@ -34,9 +34,6 @@ namespace MakeItCount.Entities
         [BsonElement("coolDownExercises")]
         public IEnumerable<Exercise>? CooldownExercises { get; init; }
 
-        [BsonElement("filePosition")]
-        public int FilePosition { get; init; }
-
         /// <summary>
         /// Order of the workout in the week
         /// </summary>
@@ -44,11 +41,13 @@ namespace MakeItCount.Entities
         public int Order { get; set; } // might not be useful
 
         [BsonElement("trackName")]
+        /// <summary>
+        /// [Persist, Pump, Minimalist, Pillars]
+        /// </summary>
         public string? TrackName { get; init; }
 
-        // if week 1
-        [BsonElement("isBeginningOfCycle")]
-        public bool IsBeginningOfCycle { get; init; }
+        [BsonElement("week")]
+        public int Week { get; init; }
 
     }
 }
