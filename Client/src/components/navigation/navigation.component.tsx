@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { loginRequest } from '../../authConfig';
@@ -16,21 +16,28 @@ import AccountCircle from '@mui/icons-material/AccountCircle'
 
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { navBarTopItems } from './navigation-items';
+import { UserContext } from '../../contexts/userContext';
+import WeekSelector from '../week-selector/week-selector';
 
 const Navigation = () => {
   const location = useLocation();
   //const [navTitle, setNavTitle] = React.useState('Home');
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const { instance } = useMsal();
+  const userSettings = useContext(UserContext)
   const activeAccount = instance.getActiveAccount();
   const navigate = useNavigate();
 
   const pathName = location.pathname;
   let navTitle = pathName.split('/')[1];
+
+  //todo: extract component
+  let navTitleComponent = <></>;
   if (navTitle === '') {
-    // navTitle = 'Home';
-    navTitle = 'Week 1';
+    navTitleComponent = <WeekSelector />
+    // navTitle = `Week ${userSettings.activeWeek.toString()}`;
   } else {
+    navTitleComponent = <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{navTitle}</Typography>
     navTitle = navTitle.charAt(0).toUpperCase() + navTitle.slice(1);
   }
 
@@ -119,9 +126,10 @@ const Navigation = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {navTitle}
-            </Typography>
+            </Typography> */}
+            {navTitleComponent}
             <UnauthenticatedTemplate>
               <Button onClick={handleLoginPopup} color="inherit">Login</Button>
             </UnauthenticatedTemplate>
