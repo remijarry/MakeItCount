@@ -12,6 +12,8 @@ export const UserProvider = ({ children }) => {
         setActiveTrack(track);
     }
 
+    //todo: useEffect on activeTrack to make an api call to get the track data
+
 
     const value = { activeTrack, changeActiveTrack };
 

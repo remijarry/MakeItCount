@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Card, Typography, CardContent, Grid, Button } from '@mui/material'
+import { Box, Card, Typography, CardContent, Grid, Button, Stack } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IExercise, IWorkoutItem } from '../../models/workout'
 import AccordionSection from '../accordion/accordion-section.component'
@@ -175,6 +175,7 @@ const wod = {
 
 
 const WorkoutDisplay = () => {
+  const coachsNotesIndex = 0; // we dont log any results for coachs notes
   const navigate = useNavigate();
   const splitAndMapString = (str: string | null | undefined) => {
     if (!str) return (<span></span>);
@@ -223,9 +224,14 @@ const WorkoutDisplay = () => {
           )}
           {wod?.workoutItems?.map((item: IWorkoutItem, index: number) => (
             <AccordionSection key={index} title={item.name} titleVariant='subtitle1' content={splitAndMapString(item.info)}>
-              {item.selectedExercises?.map((exercise: IExercise, index: number) => (
-                <ExerciseAccordion key={index} name={exercise.name} videoId={exercise.videoId ? exercise.videoId : exercise.videoUrl} titleVariant='caption' />
-              ))}
+              {index > coachsNotesIndex && (
+                <Stack sx={{
+                  marginBottom: 2,
+                }} justifyContent={'center'} spacing={5} direction="row">
+                  <Button variant="text">Prepare</Button>
+                  <Button variant="contained">Log Your Results</Button>
+                </Stack>
+              )}
             </AccordionSection>
           ))}
           {wod && wod.coolDownExercises && wod.coolDownExercises?.length > 0 && (

@@ -26,7 +26,7 @@ const TrackSelector = () => {
                 id="track-select"
                 value={userSettings.activeTrack}
                 label="Track"
-                onChange={e => userSettings.changeActiveTrack(e?.target.value as string)} //todo: make an api call to get the track data
+                onChange={e => userSettings.changeActiveTrack(e?.target.value as string)}
             >
                 {menuItems.map((track: string, index: number) => (
                     <MenuItem
