@@ -5,7 +5,7 @@ namespace QueryParameters
     public record WorkoutsQueryParameters
     {
         [BindRequired]
-        public string TrackName { get; init; }
+        public string Track { get; init; }
         [BindRequired]
         public int Week { get; init; }
     }

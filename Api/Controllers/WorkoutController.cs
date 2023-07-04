@@ -29,7 +29,7 @@ namespace MakeItCount.Controllers
         [HttpGet(Name = "GetWorkouts")]
         public async Task<List<WorkoutModel>> Get([FromQuery] WorkoutsQueryParameters queryParameters)
         {
-            var workouts = (await _workoutRepository.GetWorkoutsByTrackAndWeek(queryParameters.TrackName, queryParameters.Week)).Select(workout => workout.AsDto()).ToList();
+            var workouts = (await _workoutRepository.GetWorkoutsByTrackAndWeek(queryParameters.Track, queryParameters.Week)).Select(workout => workout.AsDto()).ToList();
             return workouts;
         }
 

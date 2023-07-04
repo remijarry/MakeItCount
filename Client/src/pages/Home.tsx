@@ -784,7 +784,6 @@ export const Home = () => {
     const { instance } = useMsal();
     const activeAccount = instance.getActiveAccount();
     const userSettings = useContext(UserContext);
-    console.log(userSettings.activeTrack);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -795,7 +794,7 @@ export const Home = () => {
                     <Card sx={{ minWidth: 275, textAlign: 'left' }}>
                         <CardContent sx={{ paddingTop: 0 }}>
                             <TrackSelector />
-                            {workouts?.map((workout: IWorkout) => (
+                            {userSettings.activeWorkouts?.map((workout: IWorkout) => (
                                 <Link to={`/workout/${workout.id}`} key={workout.id}>
                                     <Card key={workout.id}
                                         raised={true} sx={{

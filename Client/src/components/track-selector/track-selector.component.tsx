@@ -6,7 +6,6 @@ const menuItems = ['Persist', 'Pump', 'Minimalist', 'Pillars']
 
 const TrackSelector = () => {
     const userSettings = useContext(UserContext);
-    console.log(userSettings.activeTrack)
 
     return (
         <Stack direction='row' justifyContent={'center'} sx={{
