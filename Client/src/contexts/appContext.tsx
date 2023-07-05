@@ -5,7 +5,7 @@ import { createContext, useState, useEffect } from 'react';
 /// The AppContext is used to share state between components.
 /// </summary>
 export const AppContext = createContext({
-    activeTrack: 'Persist',
+    activeTrack: 'persist',
     changeActiveTrack: (track: string) => { },
     activeWeek: 1,
     changeActiveWeek: (week: number) => { },
@@ -21,7 +21,7 @@ export const AppContext = createContext({
 // 4. state-management library
 
 export const AppProvider = ({ children }) => {
-    const [activeTrack, setActiveTrack] = useState('Persist')
+    const [activeTrack, setActiveTrack] = useState('persist')
     const [activeWeek, setActiveWeek] = useState(1)
     const [activeWorkouts, setActiveWorkouts] = useState([])
 

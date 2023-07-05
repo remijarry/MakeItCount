@@ -12,7 +12,7 @@ namespace MakeItCount.Entities
         [BsonElement("name")]
         public string? Name { get; init; }
 
-        [BsonElement("videoUrl")]
-        public string? VideoUrl { get; init; }
+        [BsonElement("videoId")]
+        public string? VideoId { get; init; }
     }
 }

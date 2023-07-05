@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { AppContext } from '../../contexts/appContext';
 
 const menuItems = ['persist', 'pump', 'minimalist', 'pillars']
 
@@ -28,11 +27,12 @@ const TrackSelector = ({ activeTrack, changeActiveTrack }: ITrackSelectorProps) 
                 }}
             >
                 {menuItems.map((track: string) => (
-                    <ToggleButton sx={{
-                        key: { track },
-                        borderRadius: 0,
-                        flex: 1
-                    }} value={track}>{track}
+                    <ToggleButton
+                        key={track}
+                        sx={{
+                            borderRadius: 0,
+                            flex: 1
+                        }} value={track}>{track}
                     </ToggleButton>
                 ))}
             </ToggleButtonGroup>

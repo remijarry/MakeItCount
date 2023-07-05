@@ -10,6 +10,6 @@ namespace MakeItCount.Models
 
         public string? Name { get; init; }
 
-        public string? VideoUrl { get; init; }
+        public string? VideoId { get; init; }
     }
 }

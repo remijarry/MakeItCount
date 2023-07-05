@@ -37,7 +37,7 @@ const WorkoutDisplay = () => {
               {wod?.warmupExercises && wod.warmupExercises?.length > 0 && (
                 <AccordionSection title='Warmup' titleVariant='h6' content={splitAndMapString(wod?.warmupDescription)}>
                   {wod?.warmupExercises?.map((exercise: IExercise) => (
-                    <ExerciseAccordion key={exercise.exerciseId} name={exercise.name} videoId={exercise.videoId ? exercise.videoId : exercise.videoUrl} titleVariant='caption' />
+                    <ExerciseAccordion key={exercise.exerciseId} name={exercise.name} videoId={exercise.videoId ? exercise.videoId : ''} titleVariant='caption' />
                   ))}
                 </AccordionSection>
               )}
@@ -58,7 +58,7 @@ const WorkoutDisplay = () => {
               {wod?.cooldownExercises && wod.cooldownExercises?.length > 0 && (
                 <AccordionSection title='Cooldown' titleVariant='h6' content={splitAndMapString(wod?.cooldownDescription)}>
                   {wod?.cooldownExercises?.map((exercise: IExercise, index: number) => (
-                    <ExerciseAccordion key={index} name={exercise.name} videoId={exercise.videoId ? exercise.videoId : exercise.videoUrl} titleVariant='caption' />
+                    <ExerciseAccordion key={index} name={exercise.name} videoId={exercise.videoId ? exercise.videoId : ''} titleVariant='caption' />
                   ))}
                 </AccordionSection>
               )}
