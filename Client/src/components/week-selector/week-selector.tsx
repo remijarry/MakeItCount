@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 import './week-selector.css'
-import { UserContext } from '../../contexts/userContext';
+import { AppContext } from '../../contexts/appContext';
 
 // interface WeekPickerProps {
 //     currentWeekNumber: number;
@@ -20,7 +20,7 @@ import { UserContext } from '../../contexts/userContext';
 const cycleStartWeeks = new Set([1, 7, 14, 20, 27, 33, 40, 46]);
 
 const WeekSelector = () => {
-    const userSettings = useContext(UserContext);
+    const userSettings = useContext(AppContext);
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const canPickWeek = true;
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,12 +37,13 @@ const WeekSelector = () => {
     return (
         <>
             <Typography variant="h4" className={'test'} component="div" align='center' sx={{ flexGrow: 1 }}>
-                <Button onClick={handleClick} variant="text" endIcon={<PlayArrowIcon sx={{ transform: 'rotate(90deg)' }} />} sx={{
-                    color: 'grey.50',
-                    textTransform: 'capitalize',
-                    letterSpacing: 1,
-                    fontSize: 24
-                }}>
+                <Button onClick={handleClick} variant="text" endIcon={<PlayArrowIcon
+                    sx={{ transform: 'rotate(90deg)' }} />} sx={{
+                        color: 'grey.50',
+                        textTransform: 'capitalize',
+                        letterSpacing: 1,
+                        fontSize: 24
+                    }}>
                     Week {userSettings.activeWeek.toString()}
                 </Button>
             </Typography>

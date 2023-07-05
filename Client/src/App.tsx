@@ -10,7 +10,8 @@ import './App.css';
 
 import SignInForm from './components/sign-in-form/sign-in-form.component';
 import Routing from './routes/routing.component';
-import { UserContext } from './contexts/userContext';
+import { AppContext } from './contexts/appContext';
+
 
 const Pages = () => {
   /**
@@ -21,6 +22,7 @@ const Pages = () => {
    */
   const { instance } = useMsal();
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const callbackId = instance.addEventCallback((event: any) => {
       if (
         (event.eventType === EventType.LOGIN_SUCCESS || event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS) &&

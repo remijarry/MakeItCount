@@ -16,7 +16,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle'
 
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { navBarTopItems } from './navigation-items';
-import { UserContext } from '../../contexts/userContext';
+import { AppContext } from '../../contexts/appContext';
 import WeekSelector from '../week-selector/week-selector';
 
 const Navigation = () => {
@@ -24,7 +24,7 @@ const Navigation = () => {
   //const [navTitle, setNavTitle] = React.useState('Home');
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const { instance } = useMsal();
-  const userSettings = useContext(UserContext)
+  const userSettings = useContext(AppContext)
   const activeAccount = instance.getActiveAccount();
   const navigate = useNavigate();
 
@@ -35,9 +35,15 @@ const Navigation = () => {
   let navTitleComponent = <></>;
   if (navTitle === '') {
     navTitleComponent = <WeekSelector />
-    // navTitle = `Week ${userSettings.activeWeek.toString()}`;
   } else {
-    navTitleComponent = <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{navTitle}</Typography>
+    navTitleComponent = <Typography component="div"
+      sx={{
+        flexGrow: 1,
+        fontSize: 24,
+        letterSpacing: 1,
+        textTransform: 'capitalize'
+      }}>
+      {navTitle}</Typography>
     navTitle = navTitle.charAt(0).toUpperCase() + navTitle.slice(1);
   }
 
@@ -49,7 +55,6 @@ const Navigation = () => {
     //  setNavTitle(title);
   }
   const handleLoginPopup = () => {
-    console.log('hi there')
     instance
       .loginPopup({
         ...loginRequest,
@@ -131,7 +136,12 @@ const Navigation = () => {
             </Typography> */}
             {navTitleComponent}
             <UnauthenticatedTemplate>
-              <Button onClick={handleLoginPopup} color="inherit">Login</Button>
+              <Button onClick={handleLoginPopup} sx={{
+                color: 'grey.50',
+                textTransform: 'capitalize',
+                letterSpacing: 1,
+                fontSize: 24
+              }}>Login</Button>
             </UnauthenticatedTemplate>
             <AuthenticatedTemplate>
               <div>
