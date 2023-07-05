@@ -18,7 +18,7 @@ namespace Api.Extensions
                 Title = workout.Title,
                 WorkoutItems = workout.WorkoutItems,
                 WarmupDescription = workout.WarmupDescription,
-                WarmUpExercises = workout.WarmUpExercises,
+                WarmupExercises = workout.WarmUpExercises,
                 CooldownDescription = workout.CooldownDescription,
                 CooldownExercises = workout.CooldownExercises,
                 Order = workout.Order,

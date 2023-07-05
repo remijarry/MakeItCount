@@ -1,18 +1,18 @@
 export interface IWorkout {
-    id: number,
+    workoutId: number,
     shortDescription: string,
     title: string,
     workoutItems: IWorkoutItem[],
     warmupDescription: string | null,
     cooldownDescription: string | null,
-    warmUpExercises: IExercise[] | null,
-    coolDownExercises: IExercise[] | null,
+    warmupExercises: IExercise[] | null,
+    cooldownExercises: IExercise[] | null,
     order: number,
     trackName: string
 }
 
 export interface IWorkoutItem {
-    id: number,
+    workoutItemId: number,
     name: string,
     info: string,
     position: number,
@@ -20,8 +20,7 @@ export interface IWorkoutItem {
 }
 
 export interface IExercise {
-    id: number | string,
+    exerciseId: number | string,
     name: string,
-    videoUrl?: string | ''
     videoId?: string | '',
 }

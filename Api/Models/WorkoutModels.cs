@@ -15,7 +15,7 @@ namespace MakeItCount.Entities
 
         public string? WarmupDescription { get; init; }
 
-        public IEnumerable<Exercise>? WarmUpExercises { get; init; }
+        public IEnumerable<Exercise>? WarmupExercises { get; init; }
 
         public string? CooldownDescription { get; init; }
 
