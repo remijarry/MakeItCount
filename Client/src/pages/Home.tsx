@@ -1,8 +1,6 @@
 import { useContext, useState } from 'react';
 
-import { useMsal } from '@azure/msal-react';
 import Container from '@mui/material/Container';
-
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import TrackSelector from '../components/track-selector/track-selector.component';
 import { IWorkout } from '../models/workout';
@@ -17,8 +15,6 @@ import { AppContext } from '../contexts/appContext';
 
 
 export const Home = () => {
-    const { instance } = useMsal();
-    const activeAccount = instance.getActiveAccount();
     const appState = useContext(AppContext);
 
     return (

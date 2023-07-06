@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { loginRequest } from '../../authConfig';
+import React from 'react';
 
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,21 +11,18 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
-import AccountCircle from '@mui/icons-material/AccountCircle'
-
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+
+
 import { navBarTopItems } from './navigation-items';
-import { AppContext } from '../../contexts/appContext';
 import WeekSelector from '../week-selector/week-selector';
 
 const Navigation = () => {
   const location = useLocation();
-  //const [navTitle, setNavTitle] = React.useState('Home');
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const { instance } = useMsal();
-  const userSettings = useContext(AppContext)
-  const activeAccount = instance.getActiveAccount();
   const navigate = useNavigate();
+  const { loginWithRedirect, logout } = useAuth0();
+
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
   const pathName = location.pathname;
   let navTitle = pathName.split('/')[1];
@@ -55,18 +51,15 @@ const Navigation = () => {
     //  setNavTitle(title);
   }
   const handleLoginPopup = () => {
-    instance
-      .loginPopup({
-        ...loginRequest,
-        redirectUri: '/redirect',
-      })
-      .catch((error) => console.log(error));
+    console.log('login popup');
   };
 
   const handleLogoutPopup = () => {
-    instance.logoutPopup({
-      mainWindowRedirectUri: '/', // redirects the top level app after logout
-    });
+    console.log('logout popup')
+  };
+
+  const handleLoginRedirect = () => {
+    loginWithRedirect();
   };
 
   const toggleDrawer =
@@ -101,17 +94,14 @@ const Navigation = () => {
             </ListItemButton>
           </ListItem>
         ))}
-        <AuthenticatedTemplate>
-
-          <ListItem disablePadding>
-            <ListItemButton onClick={handleLogoutPopup}>
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary='Log Out' />
-            </ListItemButton>
-          </ListItem>
-        </AuthenticatedTemplate>
+        <ListItem disablePadding>
+          <ListItemButton onClick={logout}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary='Log Out' />
+          </ListItemButton>
+        </ListItem>
       </List >
     </Box>
   );
@@ -135,27 +125,13 @@ const Navigation = () => {
               {navTitle}
             </Typography> */}
             {navTitleComponent}
-            <UnauthenticatedTemplate>
-              <Button onClick={handleLoginPopup} sx={{
-                color: 'grey.50',
-                textTransform: 'capitalize',
-                letterSpacing: 1,
-                fontSize: 24
-              }}>Login</Button>
-            </UnauthenticatedTemplate>
-            <AuthenticatedTemplate>
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <AccountCircle sx={{ width: '1.5em', height: '1.5em' }} />
-                </IconButton>
-              </div>
-            </AuthenticatedTemplate>
+            <Button onClick={handleLoginRedirect} sx={{
+              color: 'grey.50',
+              textTransform: 'capitalize',
+              letterSpacing: 1,
+              fontSize: 24
+            }}>Login</Button>
+
           </Toolbar>
         </AppBar>
       </Box>
