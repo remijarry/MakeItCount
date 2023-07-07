@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import './styles/App.css'
+import './styles/index.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1 className='text-3xl font-bold underline'>
+      <h1 className='text-2xl underline'>
+        Hello World!
+      </h1>
+      <h1>
         Hello World!
       </h1>
     </>
