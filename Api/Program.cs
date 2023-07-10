@@ -19,13 +19,17 @@ builder.Services.AddCors(options =>
 var config = builder.Configuration;
 
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(options =>
-                {
-                    config.Bind("AzureAd", options);
-                    // options.Authority = "https://login.microsoftonline.com/8aed4765-f50e-41d7-8972-8969d1715a48/v2.0/";
-                    options.TokenValidationParameters.NameClaimType = "name";
-                }, options => { config.Bind("AzureAd", options); });
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+}).AddJwtBearer(opt =>
+{
+    opt.Authority = builder.Configuration["OAuth0:Authority"];
+    opt.Audience = builder.Configuration["OAuth0:Audience"];
+});
+
 
 // builder.Services.AddAuthorization(config =>
 // {
