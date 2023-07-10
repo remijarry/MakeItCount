@@ -9,7 +9,6 @@ using QueryParameters;
 namespace MakeItCount.Controllers
 {
 
-    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WorkoutsController : ControllerBase
@@ -25,15 +24,14 @@ namespace MakeItCount.Controllers
             _logger = logger;
         }
 
-        [RequiredScope("Workouts.Read")]
         [HttpGet(Name = "GetWorkouts")]
+        [Authorize("read:workouts")]
         public async Task<List<WorkoutModel>> Get([FromQuery] WorkoutsQueryParameters queryParameters)
         {
             var workouts = (await _workoutRepository.GetWorkoutsByTrackAndWeek(queryParameters.Track, queryParameters.Week)).Select(workout => workout.AsDto()).ToList();
             return workouts;
         }
 
-        [RequiredScope("Workouts.Read")]
         [HttpGet("{id}", Name = "GetWorkout")]
         public async Task<Workout?> Get(int id)
         {

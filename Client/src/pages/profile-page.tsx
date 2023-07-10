@@ -14,18 +14,20 @@ const ProfilePage = () => {
                 const accessToken = await getAccessTokenSilently({
                     authorizationParams: {
                         audience: AUTHORIZATION_CONFIG.AUDIENCE,
-                        scope: AUTHORIZATION_CONFIG.SCOPES.READ,
+                        scope: AUTHORIZATION_CONFIG.SCOPES.WORKOUTS.READ,
                     }
                 });
 
-                const userDetailsByIdUrl = `https://${AUTHENTICATION_CONFIG.AUTH0_DOMAIN}/api/v2/users/${user.sub}`;
+                console.log(accessToken);
+
+                const userDetailsByIdUrl = `http://localhost:5139/tests/private`;
                 const metadataResponse = await fetch(userDetailsByIdUrl, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
                 });
 
-                const { user_metadata } = await metadataResponse.json();
+                const user_metadata = await metadataResponse.json();
                 setUserMetadata(user_metadata);
             } catch (e) {
                 console.log(e.message);

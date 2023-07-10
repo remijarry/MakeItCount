@@ -29,7 +29,7 @@ export const Auth0ProviderWithNavigate = ({ children }: Props) => {
             authorizationParams={{
                 redirect_uri: AUTHORIZATION_CONFIG.CALLBACK_URL,
                 audience: AUTHORIZATION_CONFIG.AUDIENCE,
-                scope: `${AUTHORIZATION_CONFIG.SCOPES.READ} ${AUTHORIZATION_CONFIG.SCOPES.UPDATE}`,
+                scope: `${AUTHORIZATION_CONFIG.SCOPES.WORKOUTS.READ}`,
             }}
             onRedirectCallback={onRedirectCallback}
         >

@@ -1,9 +1,12 @@
+using System.Security.Claims;
+using Authorization;
 using MakeItCount.Entities;
 using MakeItCount.Reposity.Implementations;
 using MakeItCount.Reposity.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,28 +19,30 @@ builder.Services.AddCors(options =>
                .AllowAnyMethod();
     });
 });
+
 var config = builder.Configuration;
 
-
-builder.Services.AddAuthentication(opt =>
+// Authorization
+var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(opt =>
 {
-    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-}).AddJwtBearer(opt =>
-{
-    opt.Authority = builder.Configuration["OAuth0:Authority"];
-    opt.Audience = builder.Configuration["OAuth0:Audience"];
+    opt.Authority = domain;
+    opt.Audience = builder.Configuration["Auth0:Audience"];
+    opt.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier
+    };
 });
 
+// Authentication
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("read:workouts", policy => policy.Requirements.Add(
+            new HasScopeRequirement("read:workouts", domain)));
+});
 
-// builder.Services.AddAuthorization(config =>
-// {
-//     config.AddPolicy("MakeItCountPolicy", policyBuilder =>
-//     policyBuilder.Requirements
-//     .Add(new ScopeAuthorizationRequirement()
-//     { RequiredScopesConfigurationKey = $"AzureAd:Scopes" }));
-// });
 
 IdentityModelEventSource.ShowPII = true; //To show detail of error and see the problem
 
@@ -52,6 +57,7 @@ builder.Services.AddSwaggerGen();
 
 #region service registrations
 builder.Services.AddSingleton<IWorkoutRepository, WorkoutRepository>();
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 #endregion
 
 var app = builder.Build();

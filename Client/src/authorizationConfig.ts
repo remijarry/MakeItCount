@@ -1,11 +1,11 @@
 export const AUTHORIZATION_CONFIG = {
-    AUDIENCE: "https://makeitcount.au.auth0.com/api/v2/",
+    AUDIENCE: "https://makeitcount.com",
     CALLBACK_URL: "http://localhost:5173",
     SCOPES: {
-        READ: "read:current_user",
-        UPDATE: "update:current_user_metadata",
+        WORKOUTS : {
+            READ: "read:workouts",
+        }
     }
-
 }
 
 
