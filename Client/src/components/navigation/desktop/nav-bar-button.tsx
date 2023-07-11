@@ -8,7 +8,7 @@ const NavBarButtons = () => {
     const { isAuthenticated } = useAuth0();
 
     return (
-        <div className="nav-bar__buttons">
+        <div className="flex ml-6">
             {!isAuthenticated && (
                 <>
                     <LoginButton />
