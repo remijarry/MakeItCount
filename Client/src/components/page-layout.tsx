@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from './navigation/desktop/nav-bar'
+import SideNav from './navigation/desktop/side-nav'
 
 interface IPageLayoutProps {
     children: React.ReactNode
@@ -7,10 +8,16 @@ interface IPageLayoutProps {
 
 const PageLayout = ({ children }: IPageLayoutProps) => {
     return (
-        <div className="flex flex-col items-center h-screen w-screen">
-            <NavBar />
-            <div className="flex flex-1 flex-col shrink-0 w-screen basis-auto mt-2 max-w-screen-xl">
-                {children}
+        <div className='relative min-h-screen flex'>
+            <SideNav />
+            <div className='relative'>
+                <div className='fixed h-full bg-slate-100 border-l-2'>
+                    <NavBar />
+                    <div className="my-0 bg-slate-300 h-[2px]"></div>
+                    <div className='flex-1 p-3 text-2xl font-bold'>
+                        {children}
+                    </div>
+                </div>
             </div>
         </div>
 
