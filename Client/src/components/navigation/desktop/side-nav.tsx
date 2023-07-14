@@ -33,10 +33,9 @@ const SideNav = () => {
             </div>
 
             {SideNavMenu.map((menuItem) => (
-                <div key={menuItem.title} className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-slate-800"
-                >
-                    <Link to={menuItem.pathTo} className="text-[15px] ml-4 text-slate-400 font-bold hover:text-slate-50">{menuItem.title}</Link>
-                </div>
+                <Link to={menuItem.pathTo} key={menuItem.title} className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-slate-800">
+                    <span className="text-[15px] ml-4 text-slate-400 font-bold hover:text-slate-50">{menuItem.title}</span>
+                </Link>
             ))}
             <div
                 className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
